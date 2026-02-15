@@ -71,7 +71,12 @@ export default {
                 }));
 
                 // Sort
-                photos.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
+                // Sort
+                photos.sort((a, b) => {
+                    const dateA = new Date(a.uploadedAt).getTime();
+                    const dateB = new Date(b.uploadedAt).getTime();
+                    return dateB - dateA;
+                });
 
                 return new Response(JSON.stringify(photos), {
                     headers: { ...corsHeaders, 'Content-Type': 'application/json' }

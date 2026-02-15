@@ -38,7 +38,7 @@ export default function WeddingMap() {
     const [loadError, setLoadError] = useState(false);
 
     useEffect(() => {
-        const appKey = "70b6e7ea3da50eb3dd5fcc0089d8333b";
+        const appKey = "5d8e2ddbc4a09969cfb89c1eebac98ae";
         const scriptId = "kakao-map-sdk";
 
         const onLoadKakaoMap = () => {
@@ -63,8 +63,9 @@ export default function WeddingMap() {
                 mapInstanceRef.current = map;
 
                 // [New] 웨딩 테마 하트 마커 (SVG 파일 사용)
-                // public/marker_heart.svg 파일 참조
-                const imageSrc = "/marker_heart.svg";
+                // public/marker_heart.svg 파일 참조 (배포 시 경로 보정)
+                const isProd = process.env.NODE_ENV === 'production';
+                const imageSrc = isProd ? "/wedding_invitation/marker_heart.svg" : "/marker_heart.svg";
 
                 const imageSize = new window.kakao.maps.Size(54, 60);
                 const imageOption = { offset: new window.kakao.maps.Point(27, 60) };
