@@ -18,7 +18,7 @@ export default function Hero() {
 
     return (
         <section ref={ref} className={styles.hero}>
-            <img src="/images/wedding_pic.jpg" alt="Hero Background" className={styles.bgImg} />
+            <img src={prefix("/images/wedding_pic.jpg")} alt="Hero Background" className={styles.bgImg} />
             <div className={styles.heroOverlay} />
 
             <div className={styles.heroContent}>

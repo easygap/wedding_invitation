@@ -1,32 +1,32 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import styles from "./Invitation.module.css";
+import { useState, useRef, useEffect } from "react";
+import styles from "./Gallery.module.css";
+import { prefix } from "@/utils/prefix";
 
 const IMAGES = [
-    { src: "/images/in_jeju1.JPG", alt: "제주 웨딩 스냅 1" },
-    { src: "/images/in_jeju2.png", alt: "제주 웨딩 스냅 2" },
-    { src: "/images/in_jeju3.JPG", alt: "제주 웨딩 스냅 3" },
-    { src: "/images/in_japan1.JPG", alt: "일본 여행 1" },
-    { src: "/images/in_japan2.JPG", alt: "일본 여행 2" },
-
-    { src: "/images/in_gangnam.JPG", alt: "강남 데이트 1" },
-    { src: "/images/in_gapyeong.JPG", alt: "가평 데이트 1" },
-    { src: "/images/in_jungnang.JPG", alt: "중랑 데이트 1" },
-    { src: "/images/1.JPG", alt: "1" },
-    { src: "/images/2.JPG", alt: "2" },
-    { src: "/images/3.JPG", alt: "3" },
-    { src: "/images/4.JPG", alt: "4" },
-    { src: "/images/5.JPG", alt: "5" },
-    { src: "/images/6.JPG", alt: "6" },
-    { src: "/images/7.JPG", alt: "7" },
-    { src: "/images/8.JPG", alt: "8" },
-    { src: "/images/9.JPG", alt: "9" },
-    { src: "/images/10.JPG", alt: "10" },
-    { src: "/images/11.JPG", alt: "11" },
-    { src: "/images/12.JPG", alt: "12" },
-    { src: "/images/13.JPG", alt: "13" },
-    { src: "/images/wedding_pic.jpg", alt: "웨딩 사진" },
+    { src: prefix("/images/in_jeju1.JPG"), alt: "제주 웨딩 스냅 1" },
+    { src: prefix("/images/in_jeju2.png"), alt: "제주 웨딩 스냅 2" },
+    { src: prefix("/images/in_jeju3.JPG"), alt: "제주 웨딩 스냅 3" },
+    { src: prefix("/images/in_japan1.JPG"), alt: "일본 여행 1" },
+    { src: prefix("/images/in_japan2.JPG"), alt: "일본 여행 2" },
+    { src: prefix("/images/in_gangnam.JPG"), alt: "강남 데이트 1" },
+    { src: prefix("/images/in_gapyeong.JPG"), alt: "가평 데이트 1" },
+    { src: prefix("/images/in_jungnang.JPG"), alt: "중랑 데이트 1" },
+    { src: prefix("/images/1.JPG"), alt: "1" },
+    { src: prefix("/images/2.JPG"), alt: "2" },
+    { src: prefix("/images/3.JPG"), alt: "3" },
+    { src: prefix("/images/4.JPG"), alt: "4" },
+    { src: prefix("/images/5.JPG"), alt: "5" },
+    { src: prefix("/images/6.JPG"), alt: "6" },
+    { src: prefix("/images/7.JPG"), alt: "7" },
+    { src: prefix("/images/8.JPG"), alt: "8" },
+    { src: prefix("/images/9.JPG"), alt: "9" },
+    { src: prefix("/images/10.JPG"), alt: "10" },
+    { src: prefix("/images/11.JPG"), alt: "11" },
+    { src: prefix("/images/12.JPG"), alt: "12" },
+    { src: prefix("/images/13.JPG"), alt: "13" },
+    { src: prefix("/images/wedding_pic.jpg"), alt: "웨딩 사진" },
 ];
 
 export default function Gallery() {

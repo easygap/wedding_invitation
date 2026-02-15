@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./JigsawPuzzle.module.css";
+import { prefix } from "@/utils/prefix";
 
 const GRID = 3;
 const PIECE_COUNT = GRID * GRID;
@@ -207,7 +208,7 @@ export default function JigsawPuzzle({ onComplete, onSkip }) {
     // 이미지 프리로드
     useEffect(() => {
         const img = new Image();
-        img.src = "/images/wedding_pic.jpg";
+        img.src = prefix("/images/wedding_pic.jpg");
         img.onload = () => {
             imgRef.current = img;
             setImgLoaded(true);
@@ -374,7 +375,7 @@ export default function JigsawPuzzle({ onComplete, onSkip }) {
         <div className={styles.puzzlePage}>
             {/* 배경: 블러 처리된 원본 */}
             <div className={styles.puzzleBg} style={{
-                backgroundImage: "url(/images/wedding_pic.jpg)",
+                backgroundImage: `url(${prefix("/images/wedding_pic.jpg")})`,
             }}></div>
 
             {/* 스포트라이트 */}
@@ -395,7 +396,7 @@ export default function JigsawPuzzle({ onComplete, onSkip }) {
             >
                 {/* 가이드 이미지 */}
                 <div className={styles.guideImage} style={{
-                    backgroundImage: "url(/images/wedding_pic.jpg)",
+                    backgroundImage: `url(${prefix("/images/wedding_pic.jpg")})`,
                     width: gridSize,
                     height: gridSize,
                 }}></div>
@@ -461,7 +462,7 @@ export default function JigsawPuzzle({ onComplete, onSkip }) {
                                 </filter>
                             </defs>
                             <image
-                                href="/images/wedding_pic.jpg"
+                                href={prefix("/images/wedding_pic.jpg")}
                                 x={-piece.col}
                                 y={-piece.row}
                                 width={GRID}
@@ -495,7 +496,7 @@ export default function JigsawPuzzle({ onComplete, onSkip }) {
                 <div className={styles.completeOverlay}>
                     <div className={styles.completePhoto}>
                         <img
-                            src="/images/wedding_pic.jpg"
+                            src={prefix("/images/wedding_pic.jpg")}
                             alt="웨딩 사진"
                             className={styles.completePhotoImg}
                         />
