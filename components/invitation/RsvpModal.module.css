@@ -214,3 +214,22 @@
         opacity: 1;
     }
 }
+
+/* 모바일 최적화: 풀스크린 모달 */
+@media (max-width: 768px) {
+    .modalOverlay {
+        align-items: flex-end;
+        /* 바텀시트 느낌 */
+        padding: 0;
+    }
+
+    .modalContent {
+        max-width: 100%;
+        max-height: 90vh;
+        /* 상단 여백 조금 남김 */
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+}
