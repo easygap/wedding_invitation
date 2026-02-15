@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import styles from "./RsvpModal.module.css";
 
 export default function RsvpModal({ onClose }) {
+    const [mounted, setMounted] = useState(false);
     const [formData, setFormData] = useState({
         side: "신랑",
         attendance: "참석",
@@ -14,6 +16,15 @@ export default function RsvpModal({ onClose }) {
         privacy: false,
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+        // 모달 열릴 때 백그라운드 스크롤 방지
+        document.body.style.overflow = "hidden";
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, []);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -38,7 +49,7 @@ export default function RsvpModal({ onClose }) {
         setIsSubmitting(true);
 
         try {
-            // FormSubmit.co를 사용한 이메일 전송 (별도 백엔드 없이 작동)
+            // FormSubmit.co를 사용한 이메일 전송
             const res = await fetch("https://formsubmit.co/ajax/dlwnstndlwld@naver.com", {
                 method: "POST",
                 headers: {
@@ -70,7 +81,9 @@ export default function RsvpModal({ onClose }) {
         }
     };
 
-    return (
+    if (!mounted) return null;
+
+    return createPortal(
         <div className={styles.modalOverlay} onClick={onClose}>
             <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.modalHeader}>
@@ -187,6 +200,7 @@ export default function RsvpModal({ onClose }) {
                     </button>
                 </form>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }

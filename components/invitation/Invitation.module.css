@@ -273,6 +273,40 @@
     /* 그림자 공간 확보 */
 }
 
+/* PC에서는 그리드 뷰 (드래그/스크롤 X) */
+@media (min-width: 769px) {
+    .gallerySlider {
+        overflow: visible;
+        margin: 0;
+        padding: 40px 0;
+    }
+
+    .galleryTrack {
+        /* Flex 해제 -> Grid 적용 */
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        /* 4열 그리드 */
+        gap: 20px !important;
+    }
+
+    .gallerySlide {
+        flex: auto !important;
+        width: 100% !important;
+        border-radius: 12px !important;
+        /* 아치형 대신 깔끔한 라운드 */
+        margin-bottom: 0;
+    }
+
+    .gallerySlide:hover {
+        transform: translateY(-5px);
+    }
+
+    .galleryDots {
+        display: none !important;
+        /* PC는 점 숨김 */
+    }
+}
+
 .gallerySlider::-webkit-scrollbar {
     display: none;
 }
@@ -286,7 +320,7 @@
     flex: 0 0 280px;
     scroll-snap-align: center;
     border-radius: 120px 120px 0 0;
-    /* 아치형 디자인 */
+    /* 기본(모바일): 아치형 */
     overflow: hidden;
     box-shadow: var(--shadow-soft);
     cursor: pointer;

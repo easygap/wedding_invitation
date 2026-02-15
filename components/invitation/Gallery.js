@@ -14,7 +14,6 @@ const IMAGES = [
     { src: prefix("/images/in_gapyeong.JPG"), alt: "가평 데이트 1" },
     { src: prefix("/images/in_jungnang.JPG"), alt: "중랑 데이트 1" },
     { src: prefix("/images/1.JPG"), alt: "1" },
-    { src: prefix("/images/2.JPG"), alt: "2" },
     { src: prefix("/images/3.JPG"), alt: "3" },
     { src: prefix("/images/4.JPG"), alt: "4" },
     { src: prefix("/images/5.JPG"), alt: "5" },
@@ -81,6 +80,9 @@ export default function Gallery() {
 
     // 마우스 드래그 핸들러
     const onMouseDown = (e) => {
+        // PC(Grid View)에서는 드래그 비활성화
+        if (window.innerWidth > 768) return;
+
         const slider = sliderRef.current;
         isDown.current = true;
         isDragging.current = false;
