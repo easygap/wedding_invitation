@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import styles from "./Gallery.module.css";
+import styles from "./Invitation.module.css";
 import { prefix } from "@/utils/prefix";
 
 const IMAGES = [
