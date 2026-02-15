@@ -1,0 +1,415 @@
+/* ══════════════════════════════════════
+   Jigsaw Puzzle — 감성 초대장 스타일
+   ══════════════════════════════════════ */
+
+/* ── 페이지 컨테이너 ── */
+.puzzlePage {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #080604;
+}
+
+/* ── 배경: 블러 + 스포트라이트 ── */
+.puzzleBg {
+    position: absolute;
+    inset: -40px;
+    background-size: cover;
+    background-position: center;
+    filter: blur(35px) brightness(0.25) saturate(0.5);
+    transform: scale(1.2);
+}
+
+/* 중심부 스포트라이트 효과 */
+.spotlight {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 50% at center,
+            rgba(212, 165, 116, 0.06) 0%,
+            rgba(0, 0, 0, 0) 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ── 헤더 ── */
+.header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.subtitle {
+    font-family: var(--font-cursive);
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    color: rgba(255, 255, 255, 0.92);
+    letter-spacing: 1px;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.hint {
+    font-family: var(--font-inter);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.5px;
+}
+
+/* 원형 프로그레스 */
+.progressWrap {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progressRing {
+    position: absolute;
+    inset: 0;
+    transform: rotate(-90deg);
+}
+
+.progressTrack {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.08);
+    stroke-width: 2.5;
+}
+
+.progressFill {
+    fill: none;
+    stroke: var(--color-gold, #D4A574);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progressText {
+    font-family: var(--font-inter);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.5px;
+    z-index: 1;
+}
+
+/* ── Glass Panel 타겟 프레임 ── */
+.targetFrame {
+    position: relative;
+    z-index: 5;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow:
+        0 0 60px rgba(212, 165, 116, 0.04),
+        inset 0 0 30px rgba(0, 0, 0, 0.15);
+    overflow: visible;
+    pointer-events: none;
+}
+
+.guideImage {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.08;
+    border-radius: 11px;
+    pointer-events: none;
+}
+
+/* 그리드 가이드 슬롯 */
+.slot {
+    position: absolute;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: all 0.3s ease;
+}
+
+/* 드래그 중인 조각과 매칭 시 슬롯 하이라이트 */
+.slotHighlight {
+    border-color: rgba(212, 165, 116, 0.2);
+    background: rgba(212, 165, 116, 0.04);
+    box-shadow: inset 0 0 12px rgba(212, 165, 116, 0.08);
+}
+
+/* ── 퍼즐 조각 ── */
+.piece {
+    position: fixed;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    opacity: 0.98;
+    transition:
+        filter 0.2s ease,
+        transform 0.2s ease;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.55));
+    will-change: transform, left, top;
+}
+
+.piece:hover:not(.snapped):not(.dragging) {
+    transform: scale(1.04) translateY(-6px);
+    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.6)) brightness(1.06);
+}
+
+.dragging {
+    cursor: grabbing;
+    transform: scale(1.06) !important;
+    filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.7)) brightness(1.08) !important;
+    z-index: 200 !important;
+    transition: filter 0.1s ease !important;
+}
+
+.snapped {
+    cursor: default;
+    filter: none;
+    opacity: 1;
+    transition: all 0.4s cubic-bezier(0.2, 1.2, 0.3, 1);
+    pointer-events: none;
+}
+
+/* 스냅 성공 바운스 */
+.snapBounce {
+    animation: snapIn 0.5s cubic-bezier(0.2, 1.2, 0.3, 1) forwards;
+}
+
+@keyframes snapIn {
+    0% {
+        transform: scale(1.06);
+    }
+
+    50% {
+        transform: scale(1.03);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* 스냅 성공 골드 글로우 */
+.snapGlow {
+    animation: goldGlow 0.6s ease forwards;
+}
+
+@keyframes goldGlow {
+    0% {
+        filter: drop-shadow(0 0 0 rgba(212, 165, 116, 0));
+    }
+
+    40% {
+        filter: drop-shadow(0 0 16px rgba(212, 165, 116, 0.5));
+    }
+
+    100% {
+        filter: drop-shadow(0 0 0 rgba(212, 165, 116, 0));
+    }
+}
+
+/* 오답 shake */
+.shake {
+    animation: pieceShake 0.3s ease;
+}
+
+@keyframes pieceShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-6px) rotate(-2deg);
+    }
+
+    40% {
+        transform: translateX(5px) rotate(1.5deg);
+    }
+
+    60% {
+        transform: translateX(-4px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translateX(3px) rotate(0.5deg);
+    }
+}
+
+/* ── Skip 버튼 ── */
+.skipBtn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: var(--font-inter);
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.skipBtn:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+}
+
+/* ── 완성 화면 ── */
+.completeOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1002;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0);
+    animation: completeBgFade 1.2s ease 0.3s forwards;
+}
+
+@keyframes completeBgFade {
+    to {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+    }
+}
+
+.completePhoto {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.completePhotoImg {
+    max-width: 80%;
+    max-height: 60vh;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: scale(0.95);
+    animation: photoReveal 1.5s ease 0.2s forwards;
+}
+
+@keyframes photoReveal {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.completeContent {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: contentSlideUp 0.8s ease 1s forwards;
+}
+
+@keyframes contentSlideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.completeTitle {
+    font-family: var(--font-cursive);
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    color: var(--color-gold, #D4A574);
+    margin-bottom: 12px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.completeSubtitle {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+
+.enterBtn {
+    padding: 16px 48px;
+    border-radius: 100px;
+    background: var(--color-gold, #D4A574);
+    color: #fff;
+    font-family: var(--font-inter);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 30px rgba(212, 165, 116, 0.4);
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: btnFadeIn 0.6s ease 1.5s forwards;
+}
+
+@keyframes btnFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.enterBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(212, 165, 116, 0.55);
+    background: #C39260;
+}
+
+/* ── Confetti 파티클 ── */
+.confettiCanvas {
+    position: fixed;
+    inset: 0;
+    z-index: 1003;
+    pointer-events: none;
+}
+
+/* ── 반응형 ── */
+@media (max-width: 480px) {
+    .header {
+        margin-bottom: 16px;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+
+    .progressWrap {
+        width: 40px;
+        height: 40px;
+    }
+
+    .completePhotoImg {
+        max-width: 90%;
+    }
+
+    .enterBtn {
+        padding: 14px 36px;
+        font-size: 0.85rem;
+    }
+}

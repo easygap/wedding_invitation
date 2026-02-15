@@ -1,66 +1,67 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useState } from "react";
+import JigsawPuzzle from "@/components/puzzle/JigsawPuzzle";
+import Transition from "@/components/ui/Transition";
+import Hero from "@/components/invitation/Hero";
+import Letter from "@/components/invitation/Letter";
+import Gallery from "@/components/invitation/Gallery";
+import Calendar from "@/components/invitation/Calendar";
+import Location from "@/components/invitation/Location";
+import Account from "@/components/invitation/Account";
+import Rsvp from "@/components/invitation/Rsvp"; // Import Rsvp
+import Guestbook from "@/components/social/Guestbook";
+import PhotoUpload from "@/components/social/PhotoUpload";
+import Toast from "@/components/ui/Toast";
+import BgmPlayer from "@/components/ui/BgmPlayer";
 
 export default function Home() {
+  const [phase, setPhase] = useState("puzzle"); // puzzle | transition | invitation
+  const [toastMsg, setToastMsg] = useState("");
+
+  const handlePuzzleComplete = () => {
+    setPhase("transition");
+  };
+
+  const handleTransitionEnd = () => {
+    setPhase("invitation");
+  };
+
+  const showToast = (msg) => {
+    setToastMsg(msg);
+    setTimeout(() => setToastMsg(""), 2200);
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <>
+      {phase === "puzzle" && (
+        <JigsawPuzzle onComplete={handlePuzzleComplete} onSkip={handlePuzzleComplete} />
+      )}
+
+      {phase === "transition" && (
+        <Transition onEnd={handleTransitionEnd} />
+      )}
+
+      {phase === "invitation" && (
+        <main>
+          <BgmPlayer />
+          <div id="hero-section"><Hero /></div>
+          <div id="letter-section"><Letter /></div>
+          <div id="gallery-section"><Gallery /></div>
+          <div id="calendar-section"><Calendar /></div>
+          <div id="location-section"><Location /></div>
+          <div id="rsvp-section"><Rsvp /></div> {/* Rsvp 추가 */}
+          <div id="account-section"><Account showToast={showToast} /></div>
+          <div id="guestbook-section"><Guestbook /></div>
+          <div id="photo-section"><PhotoUpload /></div>
+          <footer className="footer">
+            <p className="footer-names">준수 ♥ 윤겸</p>
+            <p className="footer-date">2029. 03. 31</p>
+          </footer>
+        </main>
+      )}
+
+      <Toast message={toastMsg} />
+    </>
   );
 }

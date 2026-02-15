@@ -1,0 +1,44 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: #1A0F08;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.dark {
+    opacity: 1;
+}
+
+.bright {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.centerText {
+    text-align: center;
+}
+
+.script {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: var(--color-accent-light);
+    opacity: 0;
+    animation: fadeUpIn 1s ease 0.3s forwards;
+}
+
+@keyframes fadeUpIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

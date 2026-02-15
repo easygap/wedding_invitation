@@ -1,0 +1,54 @@
+.container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    /* 갤러리나 다른 오버레이보다 위로 */
+}
+
+.btn {
+    background: rgba(255, 255, 255, 0.85);
+    /* 더 잘 보이게 */
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    /* Flex 확인 */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #333;
+    /* 더 진하게 */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+}
+
+/* 재생 중일 때 살짝 흔들리는 애니메이션 */
+.spinning .icon {
+    animation: sway 3s ease-in-out infinite;
+}
+
+@keyframes sway {
+
+    0%,
+    100% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(5deg);
+    }
+}

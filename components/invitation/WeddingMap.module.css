@@ -1,0 +1,196 @@
+/* Wedding Map Custom Styles (Renewal) */
+.container {
+    width: 100%;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.mapFrame {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    /* 지도 높이 약간 확대 */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    /* 부드러운 그림자 */
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    /* 은은한 골드 테두리 */
+}
+
+.mapView {
+    width: 100%;
+    height: 100%;
+}
+
+.mapPlaceholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: #8D6E63;
+    font-size: 0.9rem;
+}
+
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-top-color: #D4AF37;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Custom Overlay Styles */
+.customOverlay {
+    position: relative;
+    bottom: 12px;
+    animation: floatUp 0.8s ease-out forwards;
+    cursor: default;
+}
+
+.overlayCard {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    /* Gold Border */
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(4px);
+    min-width: 180px;
+}
+
+/* 말풍선 꼬리 */
+.overlayCard::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid rgba(212, 175, 55, 0.4);
+}
+
+.overlayCard::before {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    /* border 두께 고려 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid rgba(255, 255, 255, 0.95);
+    z-index: 1;
+}
+
+.overlayTitle {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #5D4037;
+    /* Warm Brown */
+    margin-bottom: 4px;
+    white-space: nowrap;
+}
+
+.overlaySubtitle {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: #8D6E63;
+    white-space: nowrap;
+}
+
+/* Entrance Animation */
+@keyframes floatUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── 하단 컨트롤 패널 ── */
+.controlPanel {
+    margin-top: 24px;
+}
+
+/* ── 네비게이션 그리드 ── */
+.navGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.navItem:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.navLabel {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* 브랜드 컬러 */
+.navNaver {
+    background: #03C75A;
+    color: #fff;
+}
+
+.navNaver:hover {
+    background: #02b351;
+}
+
+.navKakao {
+    background: #FEE500;
+    color: #3B1E1E;
+}
+
+.navKakao:hover {
+    background: #fadd00;
+}
+
+.navGoogle {
+    background: #4285F4;
+    color: #fff;
+}
+
+.navGoogle:hover {
+    background: #3367D6;
+}

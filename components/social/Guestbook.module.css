@@ -1,0 +1,167 @@
+.guestbookSection {
+    background: var(--bg-cream);
+}
+
+.desc {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    margin-bottom: 32px;
+}
+
+/* 입력 폼 */
+.form {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-subtle);
+    margin-bottom: 32px;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.formRow {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.inputName,
+.inputPassword {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 16px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s;
+    background: #FAFAFA;
+}
+
+.inputName:focus,
+.inputPassword:focus,
+.textarea:focus {
+    border-color: var(--color-gold);
+    background: #fff;
+    box-shadow: 0 0 0 2px rgba(212, 165, 116, 0.1);
+}
+
+.textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    resize: none;
+    outline: none;
+    margin-bottom: 16px;
+    transition: all 0.2s;
+    background: #FAFAFA;
+    min-height: 100px;
+}
+
+.submitBtn {
+    width: 100%;
+    padding: 16px;
+    background: var(--bg-moka);
+    color: var(--color-charcoal);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.submitBtn:hover {
+    background: var(--color-gold);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+}
+
+.submitBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 메시지 리스트 */
+.messageList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.emptyMsg {
+    text-align: center;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    padding: 40px 0;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+}
+
+.messageCard {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow-subtle);
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.messageCard:hover {
+    transform: translateY(-2px);
+}
+
+.messageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.messageName {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-charcoal);
+}
+
+.messageDate {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    opacity: 0.7;
+}
+
+.messageText {
+    font-size: 0.95rem;
+    color: #4A4A4A;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.deleteBtn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    opacity: 0;
+    transition: all 0.2s;
+    background: #F5F5F5;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.messageCard:hover .deleteBtn {
+    opacity: 1;
+}
+
+.deleteBtn:hover {
+    background: #FFEBEE;
+    color: #D32F2F;
+}
