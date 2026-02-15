@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import styles from "./BgmPlayer.module.css";
-import { prefix } from "@/utils/prefix";
+import { prefix } from "../../utils/prefix";
 
 export default function BgmPlayer() {
     const [isPlaying, setIsPlaying] = useState(false);

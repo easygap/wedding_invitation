@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import styles from "./Invitation.module.css";
-import { prefix } from "@/utils/prefix";
+import { prefix } from "../../utils/prefix";
 
 const IMAGES = [
     { src: prefix("/images/in_jeju1.JPG"), alt: "제주 웨딩 스냅 1" },

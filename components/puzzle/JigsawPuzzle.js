@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./JigsawPuzzle.module.css";
-import { prefix } from "@/utils/prefix";
+import { prefix } from "../../utils/prefix";
 
 const GRID = 3;
 const PIECE_COUNT = GRID * GRID;

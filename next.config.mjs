@@ -1,14 +1,17 @@
+// GitHub Pages 배포 설정
 const isProd = process.env.NODE_ENV === 'production';
+const repoName = 'wedding_invitation'; // 저장소 이름
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // GitHub Pages 배포 시 저장소 이름(/wedding_invitation)이 기본 경로가 됨
-  basePath: isProd ? '/wedding_invitation' : '',
-  assetPrefix: isProd ? '/wedding_invitation/' : '',
+  basePath: isProd ? `/${repoName}` : '',
+  assetPrefix: isProd ? `/${repoName}/` : '',
   output: isProd ? 'export' : undefined,
   images: {
     unoptimized: true
-  }
+  },
+  // 캐시 무효화를 위한 더미 필드 (필요시 삭제 가능)
+  poweredByHeader: false,
 };
 
 export default nextConfig;
