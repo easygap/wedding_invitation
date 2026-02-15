@@ -59,7 +59,7 @@ export default function BgmPlayer() {
 
     return (
         <div className={styles.container}>
-            <audio ref={audioRef} src="/music/bgm.mp3" loop />
+            <audio ref={audioRef} src={prefix("/music/bgm.mp3")} loop />
 
             <button
                 className={`${styles.btn} ${isPlaying ? styles.spinning : ''}`}

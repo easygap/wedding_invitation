@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import styles from "./Invitation.module.css";
+import { prefix } from "@/utils/prefix";
 
 export default function Hero() {
     const ref = useRef(null);
